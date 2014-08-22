@@ -20,11 +20,12 @@ def regist(request):
         if uf.is_valid():
             username = uf.cleaned_data['username']
             password = uf.cleaned_data['password']
+            print password
             user = User()
             user.username = username
             user.password = password
             user.save()
-            return render_to_response('success.html',{'username':username})
+            return render_to_response('success.html',{'username':user.password})
     else:
         uf = UserForm()
     return render_to_response('register.html',{'uf':uf})

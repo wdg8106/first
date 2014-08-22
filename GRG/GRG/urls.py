@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, include, url
 from account.views import regist,login,test
+from guanggao.views import addgg
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -19,5 +20,6 @@ urlpatterns = patterns('',
     (r'^regist/$',regist),
     (r'^test/$',test),
     (r'^login/$',login),
+    (r'^addgg/$',addgg),
 
 )
