@@ -1,6 +1,8 @@
 # Create your views here.
+#test
 from django.shortcuts import render
 from django import forms
+from django.contrib.auth import authenticate
 from django.shortcuts import render_to_response
 from django.http import HttpResponse,HttpResponseRedirect
 from django.template import RequestContext
@@ -37,21 +39,23 @@ def login(request):
             if user:
                 token=random.randint(100,10000)
                 request.session["token"]=token
-                data={"result":true,"token":token}
+                data={"result":True,"token":token}
                 #return HttpResponse(json.dumps(data),content_type="application/json")
-                return render_to_response('success.html',{'username':username,'data':data})
+                jsons=json.dumps(data)
+                return render_to_response('success.html',{'username':username,'data':json})
             else:
-                data={"result":flase,"message":"用户名或密码错误!"}
+                data={"result":False,"message":"error"}
                 return HttpResponse(json.dumps(data),content_type="application/json")
         else:
-            return HttpResponse(json.dumps({{"result":flase,"message":"非法数据"}}))
+            return HttpResponse(json.dumps({{"result":False,"message":"error data"}}))
     else:
-        return HttpResponse(json.dumps({{"result":flase,"message":"访问方法不是POST"}}))
+        uf = UserForm()
+        return render_to_response('login.html',{'uf':uf})
 def test(request):
     if request.method=="POST":
         jsonTest=request.POST['jsonTest']
         return HttpResponse(jsonTest)
     else:
-        return HttpResponse(json.dumps({"message":"访问方法不是POST"}))
+        return HttpResponse(json.dumps({"message":"isn't POST"}))
         
 
